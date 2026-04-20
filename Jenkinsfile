@@ -52,6 +52,7 @@ pipeline {
                             echo "gitops directory exists. Removing it..."
                             rm -rf gitops
                         fi
+                        git remote set-url origin "https://${USER}:${TOKEN}@github.com/vinodkumarsargam/GitOps.git"
                         git clone https://$USER:$TOKEN@github.com/vinodkumarsargam/GitOps.git gitops
                         cd gitops/base/shippingservice/
 
