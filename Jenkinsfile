@@ -48,26 +48,20 @@ pipeline {
                     passwordVariable: 'GIT_PASSWORD'
                 )]) {
                     sh '''
-set -e
+                    set -e
+                        if [ -d "gitops" ]; then
+                            echo "gitops directory exists. Removing it..."
+                            rm -rf gitops
+                        fi
+                        git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/vinodkumarsargam/GitOps.git gitops
+                        cd gitops/base/shippingservice/
 
-# Remove existing directory if present
-if [ -d "gitops" ]; then
-    echo "gitops directory exists. Removing it..."
-    rm -rf gitops
-fi
+                        git config user.email "jenkins@ci.com"
+                        git config user.name "jenkins"
 
-# Clone repository (use quotes to avoid URL parsing issues)
-git clone "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/vinodkumarsargam/GitOps.git" gitops
+                        # Update image tag
+                        sed -i "s|image: .*shippingservice.*|image: ${IMAGE_NAME}|g" deployment.yaml
 
-# Navigate to target directory
-cd gitops/base/shippingservice/
-
-# Configure Git user
-git config user.email "jenkins@ci.com"
-git config user.name "jenkins"
-
-# Update image tag
-sed -i "s|image: .*shippingservice.*|image: ${IMAGE_NAME}|g" deployment.yaml
                         git add .
                         git commit -m "Update shippingservice image to ${IMAGE_NAME}"
                         git push origin main
