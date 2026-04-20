@@ -48,16 +48,15 @@ pipeline {
                     passwordVariable: 'TOKEN'
                 )]) {
                     sh '''
-                    set -e
                         if [ -d "gitops" ]; then
                             echo "gitops directory exists. Removing it..."
                             rm -rf gitops
                         fi
                         git clone https://$USER:$TOKEN@github.com/vinodkumarsargam/GitOps.git gitops
-                        cd gitops/base/shippingservice/ || exit 1
+                        cd gitops/base/shippingservice/
 
-                        git config user.email "jenkins@ci.com"
-                        git config user.name "jenkins"
+                        git config user.email "vinaysargam7@gmail.com"
+                        git config user.name "vinodkumarsargam"
 
                         # Update image tag
                         sed -i "s|image: .*shippingservice.*|image: ${IMAGE_NAME}|g" deployment.yaml
