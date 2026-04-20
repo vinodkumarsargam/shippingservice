@@ -56,8 +56,8 @@ pipeline {
                         git clone https://$USER:$TOKEN@github.com/vinodkumarsargam/GitOps.git gitops
                         cd gitops/base/shippingservice/
 
-                        git config user.email "vinaysargam7@gmail.com"
-                        git config user.name "vinodkumarsargam"
+                        git config user.email "jenkins@ci.com"
+                        git config user.name "jenkins"
 
                         # Update image tag
                         sed -i "s|image: .*shippingservice.*|image: ${IMAGE_NAME}|g" deployment.yaml
