@@ -54,7 +54,7 @@ pipeline {
                             rm -rf gitops
                         fi
                         git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/vinodkumarsargam/GitOps.git gitops
-                        cd gitops/base/shippingservice/
+                        cd gitops/base/shippingservice/ || exit 1
 
                         git config user.email "jenkins@ci.com"
                         git config user.name "jenkins"
