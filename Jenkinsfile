@@ -52,11 +52,11 @@ pipeline {
                             echo "gitops directory exists. Removing it..."
                             rm -rf gitops
                         fi
-                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/vinodkumarsargam/GitOps.git
+                        git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/vinodkumarsargam/GitOps.git gitops
                         cd gitops/base/shippingservice/
 
-                        git config --global user.name "vinodkumarsargam"
-                        git config --global user.email "vinaysargam7@gmail.com"
+                        git config user.email "jenkins@ci.com"
+                        git config user.name "jenkins"
 
                         # Update image tag
                         sed -i "s|image: .*shippingservice.*|image: ${IMAGE_NAME}|g" deployment.yaml
