@@ -44,8 +44,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'github-creds',
-                    usernameVariable: 'GIT_USERNAME',
-                    passwordVariable: 'GIT_PASSWORD'
+                    usernameVariable: 'USER',
+                    passwordVariable: 'TOKEN'
                 )]) {
                     sh '''
                     set -e
@@ -53,7 +53,7 @@ pipeline {
                             echo "gitops directory exists. Removing it..."
                             rm -rf gitops
                         fi
-                        git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/vinodkumarsargam/GitOps.git gitops
+                        git clone https://$USER:$TOKEN@github.com/vinodkumarsargam/GitOps.git gitops
                         cd gitops/base/shippingservice/ || exit 1
 
                         git config user.email "jenkins@ci.com"
